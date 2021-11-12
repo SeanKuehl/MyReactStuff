@@ -12,7 +12,8 @@ class DecimalHandler extends React.Component {
   constructor(props) {
 	  super(props);
 	  
-	  this.handleSubmit = this.handleSubmit.bind(this);	
+	  
+	  //this.handleSubmit = this.props.subFunc.bind(this);	
 	  this.handleChange = this.handleChange.bind(this);
 	  
 	  this.state = {
@@ -128,7 +129,7 @@ class DecimalHandler extends React.Component {
         <div className="DecimalHandler"></div>
         
 
-		<form onSubmit={this.handleSubmit}>
+		<form onSubmit={this.props.subFunc}>
 		<label for="decimal">Please enter the decimal number you want to convert:</label><br></br>
 		<input type="text" id="decimal" name="enter_decimal" defaultValue={this.state.value}  onChange={this.handleChange} /><br></br>
 		<p> you converted value is: {this.state.value}</p>
@@ -140,19 +141,11 @@ class DecimalHandler extends React.Component {
 }
 
 
-
-
-
-
-class DecimalToBinaryApp extends React.Component {
+class TestThing extends React.Component {
 	
 	constructor(props) {
 	  super(props);
-	  this.state = {
-		
-		  value: [0,0,0,0],
-		  
-	  };
+	  
   }
   
   
@@ -165,8 +158,51 @@ class DecimalToBinaryApp extends React.Component {
   render() {
     return (
       <div className="DecimalToBinaryApp">
+        
+          
+		<p>the current value is: {this.props.value}</p>
+        
+        
+      </div>
+    );
+  }
+}
+
+
+
+class DecimalToBinaryApp extends React.Component {
+	
+	constructor(props) {
+	  super(props);
+	  this.state = {
+		
+		  value: "",
+		  
+	  };
+  }
+  
+  
+ handleSubmit(){
+	 this.setState({value: "this worked"});
+	 alert(this.state.value);
+	 //a click does not reload page but a form submit does 
+	 //the function passing syntax from this end () => ... makes all the difference it seems
+	 
+	 
+	 
+ }
+  
+  
+  
+	
+	
+  render() {
+    return (
+      <div className="DecimalToBinaryApp">
         <div className="decimal">
-          <DecimalHandler  sampleText="enter a number"/>
+          <DecimalHandler  subFunc={() => this.handleSubmit()}/>
+		  <TestThing value={this.state.value}/>
+		  
         </div>
         
       </div>
